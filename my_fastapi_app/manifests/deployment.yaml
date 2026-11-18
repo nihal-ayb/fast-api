@@ -25,7 +25,7 @@ spec:
       containers:
         - name: my-fastapi-app
           # Jenkinsfile rewrites this line with the new build tag (sed matches on the image name)
-          image: nihalayb/my-fastapi-app:latest
+          image: nihalayb/my-fastapi-app:2
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
