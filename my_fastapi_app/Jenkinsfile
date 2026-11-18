@@ -13,7 +13,7 @@ pipeline {
         GIT_CREDENTIALS_ID    = 'github-cred'
         MANIFEST_REPO         = 'https://github.com/nihal-ayb/fast-api.git'
         MANIFEST_BRANCH       = 'main'
-        MANIFEST_FILE         = 'my-fastapi-app/manifests/deployment.yaml'
+        MANIFEST_FILE         = 'my_fastapi_app/manifests/deployment.yaml'
     }
 
     stages {
@@ -33,7 +33,7 @@ pipeline {
                             -Dsonar.projectKey=my-fastapi-app-key \
                             -Dsonar.projectName='my-fastapi-app-project' \
                             -Dsonar.sources=. \
-                            -Dsonar.exclusions=manifests/**,Jenkinsfile,**/venv/**,**/.venv/**,**/__pycache__/**"
+                            -Dsonar.exclusions=**/manifests/**,**/Jenkinsfile,**/venv/**,**/.venv/**,**/__pycache__/**"
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
-                        def appImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}", ".")
+                        def appImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}", "./my_fastapi_app")
                         appImage.push()
                         appImage.push('latest')
                     }
